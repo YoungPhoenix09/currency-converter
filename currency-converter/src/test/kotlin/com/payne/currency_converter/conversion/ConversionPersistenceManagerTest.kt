@@ -5,6 +5,7 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.verify
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -43,8 +44,9 @@ class ConversionPersistenceManagerTest {
 
         every { conversionRepository.findAll() } returns listOf(conversion)
 
-        val retrievedRate = conversionPersistenceManager.getConversions()
+        val conversions = conversionPersistenceManager.getConversions()
 
         verify { conversionRepository.findAll() }
+        assertEquals(1, conversions.size)
     }
 }

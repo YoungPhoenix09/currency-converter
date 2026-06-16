@@ -12,6 +12,6 @@ interface RateRepository : JpaRepository<Rate, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Rate r set r.amount = ?3 where r.baseCurrency = ?1 and r.quoteCurrency = ?2")
+    @Query("update Rate r set r.amount = ?3, r.lastModifiedDate = CURRENT_TIMESTAMP where r.baseCurrency = ?1 and r.quoteCurrency = ?2")
     fun updateRateByBaseCurrencyAndQuoteCurrency(baseCurrency: String, quoteCurrency: String, amount: Float)
 }
