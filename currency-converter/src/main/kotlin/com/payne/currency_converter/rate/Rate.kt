@@ -20,7 +20,7 @@ data class Rate(
     val quoteCurrency: String,
 
     @Column(nullable = false)
-    val rate: Float,
+    val amount: Float,
 
     @Column(nullable = false)
     val lastModifiedDate: Instant = Instant.now(),

@@ -1,6 +1,7 @@
 package com.payne.currency_converter.rate
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNotNull
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,12 +12,17 @@ import java.time.Instant
 class RateRepositoryTest(
     @Autowired val rateRepository: RateRepository
 ) {
+    @BeforeEach
+    fun cleanUp() {
+        rateRepository.deleteAll()
+    }
+
     @Test
     fun `can save and retrieve rate`() {
         rateRepository.save(Rate(
             baseCurrency="",
             quoteCurrency="",
-            rate=0F,
+            amount=0F,
             lastModifiedDate=Instant.now(),
         ))
         val rates = rateRepository.findAll()
@@ -28,10 +34,23 @@ class RateRepositoryTest(
         rateRepository.save(Rate(
             baseCurrency="USD",
             quoteCurrency="EUR",
-            rate=1.3F,
+            amount=1.3F,
             lastModifiedDate=Instant.now(),
         ))
         val rate = rateRepository.findByBaseCurrencyAndQuoteCurrency("USD", "EUR")
         assertNotNull(rate)
+    }
+
+    @Test
+    fun `can update amount by base and quote currency pair`() {
+        rateRepository.save(Rate(
+            baseCurrency="USD",
+            quoteCurrency="EUR",
+            amount=1.3F,
+            lastModifiedDate=Instant.now(),
+        ))
+        rateRepository.updateRateByBaseCurrencyAndQuoteCurrency("USD", "EUR", 1.4F)
+        val rate = rateRepository.findByBaseCurrencyAndQuoteCurrency("USD", "EUR")
+        assertEquals(1.4F, rate?.amount)
     }
 }
