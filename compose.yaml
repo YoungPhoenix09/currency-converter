@@ -8,12 +8,26 @@ services:
       - "5432"
     environment:
       POSTGRES_PASSWORD: password
+    networks:
+      default:
+        aliases:
+          - dbhost
   db-admin:
     image: dpage/pgadmin4
     ports:
       - "8090:80"
     expose:
       - "8090"
+    depends_on:
+      - db
     environment:
       PGADMIN_DEFAULT_EMAIL: test@user.com
       PGADMIN_DEFAULT_PASSWORD: password
+  api:
+    build:
+      context: ./currency-converter
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
