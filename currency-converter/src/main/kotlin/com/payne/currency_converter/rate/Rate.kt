@@ -23,7 +23,7 @@ data class Rate(
     val rate: Float,
 
     @Column(nullable = false)
-    val lastModifiedDate: Instant,
+    val lastModifiedDate: Instant = Instant.now(),
 
     @Column(nullable = false)
     val refreshRateInMillis: Int = 3600000,
