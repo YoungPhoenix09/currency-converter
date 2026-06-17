@@ -23,7 +23,7 @@ class ConversionRepositoryTest(
             newCurrency = "EURO",
             newAmount = 1.5F,
         ))
-        val conversions = conversionRepository.findAll()
+        val conversions = conversionRepository.findAllByOrderByCreatedDateDesc()
         assertEquals(1, conversions.size)
     }
 }

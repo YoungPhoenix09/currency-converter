@@ -11,5 +11,5 @@ class ConversionPersistenceManager(
 
 
     fun getConversions() =
-        conversionRepository.findAll()
+        conversionRepository.findAllByOrderByCreatedDateDesc()
 }
