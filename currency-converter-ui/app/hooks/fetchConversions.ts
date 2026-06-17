@@ -1,4 +1,6 @@
-interface ConversionHistoryItem {
+"use server"
+
+export interface ConversionHistoryItem {
     id: number;
     originalCurrency: string,
     originalAmount: number,
@@ -7,13 +9,7 @@ interface ConversionHistoryItem {
     createdDate: Date;
 }
 
-interface ConversionResult {
-    convertedAmount: number;
-    exchangeRate: number;
-    rateRetrievalDate: Date;
-}
-
-export default async function useFetchConversions() {
+export async function useFetchConversions() {
     const conversionRequest = new Request("http://localhost:8080/conversions", {
         method: "GET",
     })
