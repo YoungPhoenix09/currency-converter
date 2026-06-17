@@ -21,3 +21,5 @@ DB Can be viewed at http://localhost:8090
 **port:** 5432  
 **user:** postgres  
 **password:** password  
+
+![Screenshot](demo_shot.png)
